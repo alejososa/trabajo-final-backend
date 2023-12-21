@@ -5,11 +5,11 @@ const userColletciion= "user";
 const userSchema = new mongoose.Schema({
 
     first_name:{
-        tyoe: String,
+        type: String,
         required:true
     },
     last_name:{
-        tyoe:String,
+        type:String,
         required:true
     },
     email:{
@@ -18,9 +18,10 @@ const userSchema = new mongoose.Schema({
         unique:true
     },
     username:{
-        tyoe:String,
+        type:String,
         required:true,
         unique:true
+        
     },
     password:{
         type:String,
@@ -28,11 +29,11 @@ const userSchema = new mongoose.Schema({
     },
     role:{
         type:String,
-        default:"user",
+        default:"user"
     },
     fromGithub:{
-        type:Boolean,
-        default:false
+        type:Boolean
+        
     },
 });
 

@@ -5,7 +5,13 @@ import { __dirname} from "./utils.js";
 import {Server, Socket} from "socket.io";
 import socketChat from "./web sockets/socketChat.js";
 import socketProducts from "./web sockets/socketProducts.js";
-//import { FileStore } from "session-file-store";
+import session from "express-session";
+import  FileStore  from "session-file-store";
+import MongoStore from "connect-mongo";
+import passport from "passport";
+import "../src/services/passport/passportStrategies.js";
+
+
 
 
 const app= express();
