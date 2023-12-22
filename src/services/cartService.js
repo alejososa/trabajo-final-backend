@@ -1,7 +1,7 @@
 import { promises } from "nodemailer/lib/xoauth2";
 import CartManager from "../DAL/DAO/cartManager.js";
 import ProductManager from "../DAL/DAO/productManager.js";
-
+import TickertService from "../services/ticketService.js";
 
 class CartService {
     constructor() {
@@ -150,35 +150,33 @@ class CartService {
     async checkStock(productId, quantity) {
         try {
             const product = await this.productManager.getProductById(productId);
-            if  (!product){
-                throw {status:404, message: `Producto con id ${productId} no existe`};
+            if (!product) {
+                throw { status: 404, message: `Producto con id ${productId} no existe` };
 
             }
-            return product.stock>=quantity;
+            return product.stock >= quantity;
         } catch (error) {
             console.error("No hay ese numero en el stock", error.message);
             throw error
         }
     };
 
-    async purchaseProduct(cartId, products){
-    try {
-        const response= await this.cartManager.purchaseProduct(cartId, products);
-        return response
-    } catch (error) {
-        console.error("No se pudo comprar los productos",error.message);
-        throw error;
+    async purchaseTicket(purchaseInfo) {
+        try {
+            const { purchaser, totalAmount } = purchaseInfo;;
+            const ticketInfo = {
+                code: generateUniqueCode(),
+                purchase_datetime: new Date(),
+                amount: totalAmount,
+                purchaser: purchaser,
+            };
+            const ticket = await TickertService.generateTicket(ticketInfo);
+            return ticket;
+        } catch (error) {
+            console.error("Error al generar el ticket", error);
+            throw error;
+        }
     }
-    }
-
-
-
-
-
-
-
-
-
 
 
 };

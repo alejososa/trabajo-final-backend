@@ -16,11 +16,37 @@ import "../src/services/passport/passportStrategies.js";
 
 const app= express();
 const PORT= process.env.PORT ;
-//const fileStore= FileStore(session);
+const fileStore= FileStore(session);
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static(__dirname+"/public"));
+
+
+//mongo
+app.use(
+    session({
+        store: new MongoStore({
+            mongoUrl:process.env.MONGO_URI,
+        }),
+        secret:process.env.SESSION_SECRET,
+        resave:false,
+        saveUninitialized:false,
+    })
+);
+
+//te odio handlebars
+app.engine("handlebars", handlebars.engine());
+app.set("view engine", "handlebars");
+app.set("views", __dirname+"/views");
+
+//passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+//web sockets
 
 const httpServer = app.listen(PORT,()=>{
     try {
@@ -29,4 +55,8 @@ const httpServer = app.listen(PORT,()=>{
     } catch (error) {
         console.log("No se pudo conectar al puerto");
     }
-})
+});
+
+const socketServer= new Server(httpServer);
+socketChat(socketServer);
+socketProducts(socketServer);
