@@ -1,3 +1,4 @@
+import { Long } from "mongodb";
 import ProductService from "../services/productService.js";
 
 class ProductController{
@@ -15,13 +16,13 @@ class ProductController{
 
             const options ={page,limit,sort};
             const products = await ProductService.getProducts({category}, options);
-
+            
 
             const newLink= (page)=>{
                 const baseUrl= req.originalUrl.split("?")[0];
                 const queryString= `?page=${page}`;
                 return req.originalUrl.includes("page") ? req.originalUrl.replace(/page=\d+/g, `page=${page}`):`${baseUrl}${queryString}`;
-
+                
             };
 
             const prevLink= products.hasPrevPage ? newLink(products.prevPage): null;
@@ -41,11 +42,14 @@ class ProductController{
             };
         
             return res.status(200).json(response);
-
+            
+            
         } catch (error) {
             console.error(error);
             return res.status(error.status||500).json({status:"error", message:error.message||"Internal error"});
         }
+
+        
     };
 
     async getProductByid(req,res){

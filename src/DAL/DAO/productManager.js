@@ -63,6 +63,22 @@ class ProductManager{
         }
     };
 
+    async updateStock(productId, quantity){
+        try {
+            const updatedProduct = await productModel.findByIdAndUpdate(productId,{
+                $inc:{stock:-quantity}},
+                {new:true}
+            );
+            if(!updatedProduct){
+                console.log(`Product id: ${productId}, not found`);
+            }
+            return updatedProduct;
+        } catch (error) {
+            console.error("No se pudo actualizar el error del producto", error);
+            throw error;
+        }
+    }
+
     async deleteProduct(productId){
         try {
             const response= await productModel.findByIdAndDelete(productId);

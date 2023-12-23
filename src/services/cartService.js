@@ -1,4 +1,4 @@
-import { promises } from "nodemailer/lib/xoauth2";
+
 import CartManager from "../DAL/DAO/cartManager.js";
 import ProductManager from "../DAL/DAO/productManager.js";
 import TickertService from "../services/ticketService.js";
@@ -160,6 +160,10 @@ class CartService {
             throw error
         }
     };
+
+    async updateStock(productId, quantity){
+        await this.productManager.updateStock(productId, quantity);
+    }
 
     async purchaseTicket(purchaseInfo) {
         try {

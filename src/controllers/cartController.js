@@ -1,4 +1,6 @@
+import cartService from "../services/cartService.js";
 import CartService from "../services/cartService.js";
+import ticketService from "../services/ticketService.js";
 
 class CartController {
     async getCarts(req, res) {
@@ -81,6 +83,50 @@ class CartController {
             } else {
                 res.status(500).json({ status: "error", message: "Internal error" });
             }
+        }
+    }
+
+    async purchase(req,res){
+        const {cartId}=req.params;
+
+        try {
+            const cartInfo= await CartService.getCartById(cartId);
+            const purchasedProducts= [];
+
+
+            for(const product of cartInfo.products){
+                try {
+                    const productInfo= await CartService.checkStock(product._id, product.quantity);
+                    purchase.push({
+                        _id:productInfo._id,
+                        title: productInfo.title,
+                        price: productInfo.price,
+                        quantitu: product.quantity,
+                    });
+                    await CartService.updateStock(product._id, product.quantity);
+                } catch (error) {
+                    res.status(200).json({status:"error", message:"Not enough stock"});
+                }
+            }
+        } catch (error) {
+            res.status(error.status).json({status:"error", message:error.message});
+        }
+
+        const ticketInfo={
+            products: purchasedProducts,
+            total: purchasedProducts.reduce((total, product)=>total +product.price * product.quantity,0),
+
+        };
+
+        const newTicket = await ticketService.generateTicket(ticketInfo);
+        await cartService.clearCart(cartId);
+
+        res.status(200).json({ message:"Purchase complete", purchasedProducts, ticket:newTicket});
+    }catch(error){
+        if(error.status){
+            res.status(error.status).json({status:"error", message: error.message});
+        }else{
+            res.status(500).json({status:"error"});
         }
     }
 

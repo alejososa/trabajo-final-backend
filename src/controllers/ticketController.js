@@ -1,6 +1,6 @@
 import TicketService from "../services/ticketService.js";
 
-class TickeetController{
+class TicketController{
     async createTicket(req,res){
         try {
             const ticketData= req.body;
@@ -11,3 +11,5 @@ class TickeetController{
         }
     }
 }
+
+export default new TicketController();

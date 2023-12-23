@@ -10,6 +10,13 @@ import  FileStore  from "session-file-store";
 import MongoStore from "connect-mongo";
 import passport from "passport";
 import "../src/services/passport/passportStrategies.js";
+import productRouter from "./routes/productRouter.js";
+import cartRouter  from "./routes/cartRouter.js";
+import sessionRouter from "./routes/sessionRouter.js";
+import viewsRouter from "./routes/viewsRouter.js";
+import ticketRouter from "./routes/ticketRouter.js";
+import emailRouter from "./routes/emailRouter.js";
+
 
 
 
@@ -44,7 +51,12 @@ app.set("views", __dirname+"/views");
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+//routes
+app.use("/api/products", productRouter);
+app.use("/api/carts", cartRouter);
+app.use("/api/sessions", sessionRouter);
+app.use("/api/tickets", ticketRouter);
+app.use("/", viewsRouter);
 
 //web sockets
 
