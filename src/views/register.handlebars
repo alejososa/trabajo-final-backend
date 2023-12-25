@@ -1,13 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTP</title>
-</head>
-<body>
-    <h1>My shop</h1>
+ <div>
+      <h1>Registrate</h1>
 
-    
-</body>
-</html>
+        <form id="register_form">
+
+            <label >Nombre</label>
+            <input name="first_name">
+
+            <label >Apellido</label>
+            <input name="last_name">
+
+            <label >Email</label>
+            <input type="email" name="email" id="email">
+            
+            <label >Username</label>
+            <input type="text" name="username" id="username">
+            
+            <label >Contraseña</label>
+            <input type="password" name="password" id="password">
+
+            <input type="submit" value="registrar">
+        </form>
+
+
+</div>
+
+<button onclick="location.href='/api/sessions/githubSignup'">GITHUB</button>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/register.js"></script>

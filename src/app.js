@@ -15,7 +15,8 @@ import cartRouter  from "./routes/cartRouter.js";
 import sessionRouter from "./routes/sessionRouter.js";
 import viewsRouter from "./routes/viewsRouter.js";
 import ticketRouter from "./routes/ticketRouter.js";
-import emailRouter from "./routes/emailRouter.js";
+import ProductManager from "./DAL/DAO/productManager.js";
+
 
 
 
@@ -54,9 +55,14 @@ app.use(passport.session());
 //routes
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
-app.use("/api/sessions", sessionRouter);
+app.use("/api/session", sessionRouter);
 app.use("/api/tickets", ticketRouter);
-app.use("/", viewsRouter);
+app.use("/api/views", viewsRouter);
+
+
+
+
+
 
 //web sockets
 
@@ -70,5 +76,12 @@ const httpServer = app.listen(PORT,()=>{
 });
 
 const socketServer= new Server(httpServer);
+socketServer.on("connection",(socket)=>{
+    console.log("cliente conectado", socket.id);
+    socket.on("disconect",()=>{
+        console.log("cliente desconectado");
+    })
+
+})
 socketChat(socketServer);
 socketProducts(socketServer);

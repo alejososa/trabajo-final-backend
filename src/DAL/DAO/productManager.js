@@ -17,17 +17,17 @@ class ProductManager{
         }
     };
 
-    async getProducts(){
-        try {
-            const products= await productModel.find().lean();
-            return products;
-        } catch (error) {
-            console.error("No se pueden obetener los productos",error.message);
-            return error
-        }
-    };
+    // async getProducts(){
+    //     try {
+    //         const products= await productModel.find().lean();
+    //         return products;
+    //     } catch (error) {
+    //         console.error("No se pueden obetener los productos",error.message);
+    //         return error
+    //     }
+    // };
 
-    async paginateProducts(filter, options){
+    async getProducts(filter, options){
         try {
             const products= await productModel.paginate(filter, options);
             return products;

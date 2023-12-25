@@ -8,18 +8,23 @@ const viewsRouter = Router();
 // estas dos no deberian ir en utils.js?
 
 const publicAccess= (req,res,next)=>{
-    if(req.sesssion.user) return res.redirect("/profile");
+    if(req.sesssion) 
+        return res.redirect("/profile");
+    
     next();
 };
 
 const privateAccess= (req,res,next)=>{
-    if (!req.session.user) return res.redirect("/login");
+    if (!req.session) 
+        return res.redirect("/login");
+    
+    next();
 };
 
 
 viewsRouter.get("/", async (req,res)=>{
     const productList = await productManager.getProducts();
-    res.render("index", {productList});
+    res.render("index", );
 });
 
 viewsRouter.get("realtimeproducts", async (req,res)=>{

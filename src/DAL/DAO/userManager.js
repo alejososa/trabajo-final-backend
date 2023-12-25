@@ -13,7 +13,7 @@ class UserManager{
 
     async findUser(username){
         try {
-            const user= await userModel.findOne({username});
+            const user= await userModel.findOne(username);
             return user
         } catch (error) {
             console.error("No se pudo encontrar usuario con ese username", error.message);
@@ -21,7 +21,19 @@ class UserManager{
         }
     }
 
+    async deleteUser(userId){
+        try {
+            const user= await userModel.findByIdAndDelete(userId);
+            return user;
+        } catch (error) {
+            console.error("No se pudo borrar el usuario");
+            return error
+        }
+    }
 
+    async deleteInactiveUsers(twoDaysAgo) {
+        return userModel.deleteMany({ lastConnection: { $lt: twoDaysAgo } });
+    }
 };
 
 export const userManager= new UserManager();

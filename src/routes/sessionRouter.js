@@ -14,7 +14,7 @@ sessionRouter.post("/register", async(req,res)=>{
         return res.status(400).json({message:"Complete all fields"});
 
     }
-    const userDB= await userManager.findUser(email);
+    const userDB= await userModel.findOne({email});
     if (userDB){
         return res.status(400).json({message:"Email already registered"});
 
@@ -30,6 +30,8 @@ sessionRouter.post("/register", async(req,res)=>{
         password:hashPassword
     });
     res.status(200).json({message:"User created", user: newUser});
+    const response= await userModel.create(newUser);
+    return response;
 });
 
 sessionRouter.post("/login", async (req,res)=>{
@@ -39,7 +41,7 @@ sessionRouter.post("/login", async (req,res)=>{
 
     }
 
-    const userDB = await userManager.findUser(username || email);
+    const userDB = await userModel.findOne({email});
     if(!userDB){
         return res.status(400).json({message:"User not exist"});
 
@@ -71,5 +73,12 @@ sessionRouter.post("/login", async (req,res)=>{
         res.redirect("/profile");
 }    
 });
+
+sessionRouter.get("/signout", async (req,res)=>{
+    req.session.destroy(()=>{
+        res.redirect("/login");
+    })
+});
+
 
 export default sessionRouter;

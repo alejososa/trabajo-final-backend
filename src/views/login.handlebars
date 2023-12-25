@@ -1,13 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTP</title>
-</head>
-<body>
-    <h1>My shop</h1>
+<div>
+        <h1>Logueate</h1>
 
-    
-</body>
-</html>
+        <form id="login_form">
+
+                <label>Username</label>
+                <input type="username" name="username" id="username">
+
+                <label>Contraseña</label>
+                <input type="password" name="password" id="password">
+
+                <input type="submit" value="ingresar">
+        </form>
+</div>
+<div>
+
+        <button onclick="location.href='/api/views/register'">No estas registrado?</button>
+
+</div>
+<div>
+
+        <button onclick="location.href='/api/sessions/githubSignup'">GITHUB</button>
+</div>
+<div>
+
+        <button onclick="location.href='/api/sessions/auth/google'">Google</button>
+</div>
+
+<script src="/js/login.js"></script>
