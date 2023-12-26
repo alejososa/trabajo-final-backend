@@ -6,7 +6,7 @@ import {compareData} from "../../utils.js";
 
 
 
-passport.use("local", new LocalStrategy(
+passport.use("login", new LocalStrategy(
 
     async function (username, password, done){
         try {
@@ -18,6 +18,8 @@ passport.use("local", new LocalStrategy(
             if(!isPasswordValid){
                 return done(null, false);
             }
+            userDB.lastConnection = new Date();
+            await userDB.save();
             return done (null, userDB);
         } catch (error) {
             done (error);

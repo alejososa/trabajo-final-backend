@@ -1,13 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTP</title>
-</head>
-<body>
-    <h1>My shop</h1>
+<div>
+    <h1>Hola, {{user.name}}</h1>
+    <h1>{{user.email}}</h1>
+</div>
 
-    
-</body>
-</html>
+<h1>Empezamos a comprar?</h1>
+
+
+<ul>
+    {{#each payload}}
+    <li>
+
+        <h2>Nombre producto: {{product_title}}</h2>
+        <p>{{product_thumbnail}}</p>
+        <p>Precio: {{product_price}}</p>
+        <p>{{product_description}}</p>
+
+        <button class="add-to-cart-button" data-product-id={{_id}}>Agregar al carrito</button>
+    </li>
+    {{/each}}
+</ul>
+
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>

@@ -28,5 +28,5 @@ userRouter.delete("/deleteInactives", async (req,res)=>{
 });
 
 
-
+export default userRouter;
 

@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RTP</title>
+    <title>Document</title>
 </head>
-<body>
-    <h1>My shop</h1>
 
-    
+<body>
+
+    <div>
+        <div>
+            <h2>Add product</h2>
+            <form id="addProductForm">
+                Title: <input type="text" name="title" id="title">
+                Price : <input type="number" name="price" id="price">
+                Description: <input type="text" name="description" id="description">
+                Stock : <input type="number" name="stock" id="stock">
+                Thumbnail: <input type="text" name="thumbnail" id="thumbnail">
+                Code : <input type="number" name="code" id="code">
+                Category: <input type="text" name="category" id="category">
+                <input type="submit" value="Add" id="submit">
+            </form>
+        </div>
+        <div>
+            <h2>Eliminar Producto</h2>
+            <form id="deleteProductForm">
+                Id: <input type="number" name="productId" id="productId">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+    </div>
+
+    <h1>Real time products</h1>
+    <ul>
+        {{#each products}}
+        <li>
+            {{this}}
+
+        </li>
+        {{/each}}
+    </ul>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
 </body>
+
 </html>

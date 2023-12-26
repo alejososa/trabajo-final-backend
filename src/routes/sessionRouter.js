@@ -35,8 +35,9 @@ sessionRouter.post("/register", async(req,res)=>{
 });
 
 sessionRouter.post("/login", async (req,res)=>{
-    const {username, email, password}= req.body;
-    if(!username || !email || !password){
+    const {email, password}= req.body;
+
+    if(!email || !password){
         return res.status(400).json({message: "Complete all fields"});
 
     }
@@ -52,7 +53,7 @@ sessionRouter.post("/login", async (req,res)=>{
         return res.status(400).json({message:"Wrong user or password"});
 
     }
-    if (userDB.email ==="adminCoder@coder.com" && password === "1234"){
+    if (email ==="adminCoder@coder.com" && password === "1234"){
         console.log("You are admin");
 
         req.session.user ={
