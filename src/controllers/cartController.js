@@ -92,7 +92,7 @@ class CartController {
         try {
             const cartInfo= await CartService.getCartById(cartId);
             const purchasedProducts= [];
-
+            
 
             for(const product of cartInfo.products){
                 try {
@@ -111,6 +111,7 @@ class CartController {
         } catch (error) {
             res.status(error.status).json({status:"error", message:error.message});
         }
+        
 
         const ticketInfo={
             products: purchasedProducts,
@@ -122,6 +123,7 @@ class CartController {
         await cartService.clearCart(cartId);
 
         res.status(200).json({ message:"Purchase complete", purchasedProducts, ticket:newTicket});
+    
     }catch(error){
         if(error.status){
             res.status(error.status).json({status:"error", message: error.message});

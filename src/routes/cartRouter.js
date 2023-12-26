@@ -7,7 +7,7 @@ cartRouter.get("/", CartController.getCarts);
 cartRouter.get("/:cartId", CartController.getCartById);
 cartRouter.post("/", CartController.createCart);
 cartRouter.post("/:cartId/products/:productId", CartController.addProductToCart);
-//cartRouter.post(":cartId/purchase", CartController.purchaseProducts);
+cartRouter.post(":cartId/purchase", CartController.purchase);
 cartRouter.put("/:cartId/products/:productId", CartController.updateQuantity);
 cartRouter.delete("/:cartId", CartController.clearCart);
 
