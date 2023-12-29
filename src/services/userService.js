@@ -11,6 +11,15 @@ class UserService{
         }
      }
       
+    async getUsers(){
+        try {
+            const userList = await userManager.getUsers();
+            return userList;
+        } catch (error) {
+            console.error("no se puede obtener la lista de usaurios");
+            throw new error
+        }
+    }
     async findUser(username){
         try {
             const user= await userManager.findUser(username);
@@ -29,10 +38,11 @@ class UserService{
         }
     }
 
-    async deleteInactiUsers(twoDaysAgo){
+    async deleteInactiveUsers(twoDaysAgo){
         try {
             const deletedUsers = await userManager.deleteInactiveUsers(twoDaysAgo);
             return deletedUsers;
+            
         } catch (error) {
             throw new error ("no se pudo eliminar los usuarios")
         }

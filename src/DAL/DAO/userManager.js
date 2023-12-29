@@ -11,6 +11,15 @@ class UserManager{
         }
     };
 
+
+    async getUsers(){
+        try {
+            const usersList= await userModel.find({});
+            return usersList;
+        } catch (error) {
+            console.error("no se pudo obtener lista de users");
+        }
+    }
     async findUser(username){
         try {
             const user= await userModel.findOne(username);
@@ -32,7 +41,9 @@ class UserManager{
     }
 
     async deleteInactiveUsers(twoDaysAgo) {
-        return userModel.deleteMany({ lastConnection: { $lt: twoDaysAgo } });
+        const deletedUser=
+        await userModel.deleteMany({ lastConnection: { $lt: twoDaysAgo } });
+        return deletedUser
     }
 };
 
