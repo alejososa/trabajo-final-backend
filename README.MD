@@ -1,3 +1,3 @@
 # ENTREGA PROYECTO FINAL DEL CURSO BACKEND
-gracias   david y  farid por lo enseñado y por la paciencia falta mucho pero ya vamos llegando.
-npm start para arrancar y con el thunder funciona el back y sus funciones.
+
+project to run an ecommerce. this only covers the backend area, run npm start and use thunde client or postman to start.
